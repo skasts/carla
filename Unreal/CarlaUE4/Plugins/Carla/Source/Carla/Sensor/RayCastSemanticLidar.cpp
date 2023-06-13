@@ -82,7 +82,11 @@ void ARayCastSemanticLidar::SimulateLidar(const float DeltaTime)
   const uint32 ChannelCount = Description.Channels;
   const uint32 PointsToScanWithOneLaser =
     FMath::RoundHalfFromZero(
-        Description.PointsPerSecond * DeltaTime / float(ChannelCount));
+        Description.PointsPerSecond / float(ChannelCount));
+  // const uint32 PointsToScanWithOneLaser =
+  //   FMath::RoundHalfFromZero(
+  //       Description.PointsPerSecond * DeltaTime / float(ChannelCount));
+
 
   if (PointsToScanWithOneLaser <= 0)
   {
@@ -98,8 +102,9 @@ void ARayCastSemanticLidar::SimulateLidar(const float DeltaTime)
 
   const float CurrentHorizontalAngle = carla::geom::Math::ToDegrees(
       SemanticLidarData.GetHorizontalAngle());
-  const float AngleDistanceOfTick = Description.RotationFrequency * Description.HorizontalFov
-      * DeltaTime;
+  const float AngleDistanceOfTick = Description.HorizontalFov;
+  // const float AngleDistanceOfTick = Description.RotationFrequency * Description.HorizontalFov
+  //     * DeltaTime;
   const float AngleDistanceOfLaserMeasure = AngleDistanceOfTick / PointsToScanWithOneLaser;
 
   ResetRecordedHits(ChannelCount, PointsToScanWithOneLaser);
