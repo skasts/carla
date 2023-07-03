@@ -754,6 +754,37 @@ namespace nav {
     return false;
   }
 
+  // set new max distance to vehicle SetWalkerMaxDistanceToVehicle
+  bool Navigation::SetWalkerMaxDistanceToVehicle(ActorId id, float max_distance){
+    
+    // check if all is ready
+    if (!_ready) {
+      return false;
+    }
+
+    DEBUG_ASSERT(_crowd != nullptr);
+
+    // get the internal index
+    auto it = _mapped_walkers_id.find(id);
+    if (it == _mapped_walkers_id.end()) {
+      return false;
+    }
+
+    // get the agent
+    {
+      // critical section, force single thread running this
+      std::lock_guard<std::mutex> lock(_mutex);
+      dtCrowdAgent *agent = _crowd->getEditableAgent(it->second);
+      if (agent) {
+        this->maxDistanceToVehicle = max_distance;
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+
   // set a new target point to go
   bool Navigation::SetWalkerTarget(ActorId id, carla::geom::Location to) {
 

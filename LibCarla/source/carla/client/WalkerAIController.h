@@ -29,6 +29,9 @@ namespace client {
     void GoToLocation(const carla::geom::Location &destination);
 
     void SetMaxSpeed(const float max_speed);
+
+    void SetMaxDistanceToVehicle(const float max_distance);
+
   };
 
 } // namespace client

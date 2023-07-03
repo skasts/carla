@@ -85,6 +85,8 @@ namespace nav {
     bool UpdateVehicles(std::vector<VehicleCollisionInfo> vehicles);
     /// set new max speed
     bool SetWalkerMaxSpeed(ActorId id, float max_speed);
+    /// set new max distance to vehicle
+    bool SetWalkerMaxDistanceToVehicle(ActorId id, float max_distance);
     /// set a new target point to go through a route with events
     bool SetWalkerTarget(ActorId id, carla::geom::Location to);
     // set a new target point to go directly without events
@@ -113,6 +115,7 @@ namespace nav {
 
     /// return the last delta seconds
     double GetDeltaSeconds() { return _delta_seconds; };
+    double maxDistanceToVehicle = 6.0f;
 
   private:
 

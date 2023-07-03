@@ -80,6 +80,10 @@ namespace detail {
       return _nav.SetWalkerMaxSpeed(id, max_speed);
     }
 
+    bool SetWalkerMaxDistanceToVehicle(ActorId id, float max_distance) {
+      return _nav.SetWalkerMaxDistanceToVehicle(id, max_distance);
+    }
+
     // set percentage of pedestrians that can cross the road
     void SetPedestriansCrossFactor(float percentage) {
       _nav.SetPedestriansCrossFactor(percentage);

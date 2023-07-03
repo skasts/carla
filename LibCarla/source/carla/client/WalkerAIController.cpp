@@ -76,5 +76,20 @@ namespace client {
     }
   }
 
+  void WalkerAIController::SetMaxDistanceToVehicle(const float max_distance) {
+    auto nav = GetEpisode().Lock()->GetNavigation();
+    if (nav != nullptr) {
+      auto walker = GetParent();
+      if (walker != nullptr) {
+        if (!nav->SetWalkerMaxDistanceToVehicle(walker->GetId(), max_distance)) {
+          log_warning("NAV: failed to set max distance to vehicle");
+        }
+      } else {
+        log_warning("NAV: failed to set max distance to vehicle (parent does not exist)");
+      }
+    }
+  }
+
+
 } // namespace client
 } // namespace carla
